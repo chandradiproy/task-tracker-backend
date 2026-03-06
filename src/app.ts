@@ -23,9 +23,9 @@ app.get('/health', (req: Request, res: Response) => {
 });
 
 // Register API Routes
-app.use('/auth', authRoutes);
-app.use('/users', userRoutes);
-app.use('/tasks', taskRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/tasks', taskRoutes);
 
 // Global Error Handling Middleware (Must be defined after all routes)
 app.use(errorHandler);

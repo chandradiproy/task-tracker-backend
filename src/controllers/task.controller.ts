@@ -4,8 +4,8 @@ import * as taskService from '../services/task.service';
 
 export const createTask = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userId = req.user!.userId;
-    const task = await taskService.createTask(userId, req.body);
+    const { userId, role } = req.user!;
+    const task = await taskService.createTask(userId, role, req.body);
     
     res.status(201).json({
       status: 'success',

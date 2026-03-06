@@ -4,7 +4,6 @@ import * as userService from '../services/user.service';
 
 export const getProfile = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // req.user is guaranteed to exist due to the authenticate middleware
     const userId = req.user!.userId; 
     const profile = await userService.getUserProfile(userId);
     
@@ -23,6 +22,23 @@ export const getAllUsers = async (req: Request, res: Response, next: NextFunctio
     res.status(200).json({
       status: 'success',
       data: users,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const targetUserId = req.params.id;
+    const { userId: requesterId, role: requesterRole } = req.user!;
+    
+    const updatedUser = await userService.updateUser(targetUserId, requesterId, requesterRole, req.body);
+    
+    res.status(200).json({
+      status: 'success',
+      message: 'User updated successfully',
+      data: updatedUser,
     });
   } catch (error) {
     next(error);

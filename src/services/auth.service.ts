@@ -4,7 +4,7 @@ import { hashPassword, comparePassword } from '../utils/hash.util';
 import { generateToken } from '../utils/jwt.util';
 
 export const registerUser = async (data: any) => {
-  const { email, password, role } = data;
+  const { email, password, role, name } = data;
 
   // 1. Check if user already exists
   const existingUser = await prisma.user.findUnique({
@@ -25,6 +25,7 @@ export const registerUser = async (data: any) => {
     data: {
       email,
       password: hashedPassword,
+      name,
       ...(role && { role }), // Include role if provided, otherwise Prisma uses default "user"
     },
   });

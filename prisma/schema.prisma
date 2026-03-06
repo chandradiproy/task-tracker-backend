@@ -12,6 +12,7 @@ datasource db {
 
 model User {
   id        String   @id @default(uuid())
+  name      String
   email     String   @unique
   password  String
   // SQLite doesn't support enums natively like Postgres, so we use a String with a default

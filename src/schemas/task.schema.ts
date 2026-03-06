@@ -8,16 +8,16 @@ export const createTaskSchema = z.object({
       .min(1, 'Task title cannot be empty'),
     description: z.string().optional(),
     status: z.enum(['pending', 'completed']).optional(),
+    userId: z.string().uuid('Invalid User ID format').optional(), // Allow admin to assign tasks
   }),
 });
 
-// Zod schema for PUT /tasks/:id
-// In a PUT request, fields are typically optional to allow partial updates
 export const updateTaskSchema = z.object({
   body: z.object({
     title: z.string().min(1, 'Task title cannot be empty').optional(),
     description: z.string().optional(),
     status: z.enum(['pending', 'completed']).optional(),
+    userId: z.string().uuid('Invalid User ID format').optional(), // Allow admin to re-assign
   }),
   params: z.object({
     id: z.string().uuid('Task ID must be a valid UUID'),
